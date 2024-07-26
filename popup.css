@@ -1,0 +1,99 @@
+/* body要素のスタイルを変更 */
+body {
+  min-width: 500px;
+  min-height: 300px;
+  padding: 1em;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #fff;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 画像サイズを文字のサイズに合わせる */
+ul img {
+  width: 1em;
+  height: 1em;
+}
+
+/* リンクのスタイルを変更 */
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* リストのスタイルを変更 */
+
+ul li {
+  padding: 0.5em;
+  border-bottom: 1px solid #ccc;
+}
+
+ul li:last-child {
+  border-bottom: none;
+}
+
+/* リストの最初の要素には上のボーダーを追加 */
+
+ul li:first-child {
+  border-top: 1px solid #ccc;
+}
+
+/* リストの最後の要素には下のボーダーを追加 */
+
+ul li:last-child {
+  border-bottom: 1px solid #ccc;
+} 
+
+/* ボタンのスタイルを変更 */
+/* flexboxを使って中央揃え */
+button {
+  padding: 0.5em 1em;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 0.5em;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+}
+
+/* クリック時のボタンのスタイルを変更 */
+button:active {
+  background-color: #d0d0d0;
+}
+
+/* tab-group-header クラスを持つセクションのスタイルを変更 */
+/* flexboxを使って中央揃え */
+/* レイアウトタイプ: 行 */
+section.tab-group-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5em;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #f0f0f0;
+}
+
+/* tab-group-secton クラスのセクションのスタイルを変更 */
+/* 角丸のボーダーを追加 */
+section.tab-group-section {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 0.5em;
+  padding: 0.5em;
+  background-color: #f0f0f0;
+}
