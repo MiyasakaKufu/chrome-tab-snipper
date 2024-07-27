@@ -1,14 +1,14 @@
 // MARK: - デフォルトのコピー形式
 
-var defaultGroupTitleFormat = '# {groupTitle}\n\t-';
-var defaultTabTItleAndUrlFormat = '\t* [{tabTitle}]({tabUrl})';
-var defaultTabUrlFormt = '* {tabUrl}';
+const defaultGroupTitleFormat = '- {groupTitle}\n\t-';
+const defaultTabTItleAndUrlFormat = '\t- [{tabTitle}]({tabUrl})';
+const defaultTabUrlFormt = '- {tabUrl}';
 
 // MARK: - ユーザー定義のコピー形式
 
-var userDefinedGroupTitleFormat = defaultGroupTitleFormat;
-var userDefinedTabTItleAndUrlFormat = defaultTabTItleAndUrlFormat;
-var userDefinedTabUrlFormt = defaultTabUrlFormt;
+const userDefinedGroupTitleFormat = defaultGroupTitleFormat;
+const userDefinedTabTItleAndUrlFormat = defaultTabTItleAndUrlFormat;
+const userDefinedTabUrlFormt = defaultTabUrlFormt;
 
 // MARK: - ユーザー定義のコピー形式から実際にコピーする文字列を生成する関数
 // - groupTitle: タブグループのタイトル
@@ -76,7 +76,7 @@ chrome.tabGroups.query({}, function(tabGroups) {
       copyButton.addEventListener('click', function() {
 
         // タブグループのタイトルとタブのタイトルと URL をクリップボードにコピーする
-        var markdown = generateMarkdownClip(tabGroup.groupTitle, tabs);
+        var markdown = generateMarkdownClip(tabGroup.title, tabs);
         navigator.clipboard.writeText(markdown);
       });
 
@@ -121,8 +121,7 @@ chrome.tabGroups.query({}, function(tabGroups) {
 
     // この h2 要素をクリップボードにコピーするボタンを表示する
     copyButton.addEventListener('click', function() {
-
-      var markdown = generateMarkdownClip(groupTitle, tabs);
+      var markdown = generateMarkdownClip(groupTitle.textContent, tabs);
       navigator.clipboard.writeText(markdown);
     });
 
