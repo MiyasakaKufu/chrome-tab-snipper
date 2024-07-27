@@ -1,3 +1,51 @@
+// MARK: - デフォルトのコピー形式
+
+const defaultGroupTitleFormat = '- {groupTitle}\n\t-';
+const defaultTabTItleAndUrlFormat = '\t- [{tabTitle}]({tabUrl})';
+const defaultTabUrlFormt = '- {tabUrl}';
+
+// MARK: - ユーザー定義のコピー形式
+
+const userDefinedGroupTitleFormat = defaultGroupTitleFormat;
+const userDefinedTabTItleAndUrlFormat = defaultTabTItleAndUrlFormat;
+const userDefinedTabUrlFormt = defaultTabUrlFormt;
+
+// MARK: - ユーザー定義のコピー形式から実際にコピーする文字列を生成する関数
+// - groupTitle: タブグループのタイトル
+
+function generateMarkdownClipFromGroupTitle(groupTitle) {
+  var markdownClip = userDefinedGroupTitleFormat.replace('{groupTitle}', groupTitle) + '\n';
+  return markdownClip;
+}
+
+// - tabTitleAndUrl: タブのタイトルと URL
+
+function generateMarkdownClipFromTabInfo(tabTitle, tabUrl) {
+  var markdownClip = userDefinedTabTItleAndUrlFormat.replace('{tabTitle}', tabTitle).replace('{tabUrl}', tabUrl) + '\n';
+  return markdownClip;
+}
+
+// - tabUrl: タブの URL
+
+function generateMarkdownClipFromTabUrl(tabUrl) {
+  var markdownClip = userDefinedTabUrlFormt.replace('{tabUrl}', tabUrl) + '\n';
+  return markdownClip;
+}
+
+// MARK: - タブグループのタイトルとタブのタイトルと URL 文字列に変換する関数
+
+function generateMarkdownClip(tabGroupTitle, tabs) {
+  var markdownClip = '';
+  markdownClip += generateMarkdownClipFromGroupTitle(tabGroupTitle);
+  tabs.forEach(function(tab) {
+    var tabTitle = tab.title || tab.url;
+    var tabUrl = tab.url;
+    markdownClip += generateMarkdownClipFromTabInfo(tabTitle, tabUrl);
+  });
+  return markdownClip;
+}
+
+// MARK: - イベントリスナー
 // 全てのタブグループを取得し、その中のタブのURLを表示する
 chrome.tabGroups.query({}, function(tabGroups) {
   var markdownClip = '';
@@ -26,16 +74,14 @@ chrome.tabGroups.query({}, function(tabGroups) {
       copyButton.textContent = 'Copy Markdown';
       tabGroupHeaderSection.appendChild(copyButton);
       copyButton.addEventListener('click', function() {
-        var markdown = `- ${groupTitle.textContent}\n\t-\n`;
-        tabs.forEach(function(tab) {
-          var tabTitle = tab.title || tab.url;
-          markdown += `\t- [${tabTitle}](${tab.url})\n`;
-        });
+
+        // タブグループのタイトルとタブのタイトルと URL をクリップボードにコピーする
+        var markdown = generateMarkdownClip(tabGroup.title, tabs);
         navigator.clipboard.writeText(markdown);
       });
 
       // markdown clip に追加
-      markdownClip += `- ${groupTitle.textContent}\n\t-\n`;
+      markdownClip += generateMarkdownClipFromGroupTitle(tabGroup.title);
       
       // タブグループに属するタブを表示する
       var ul = document.createElement('ul');
@@ -54,10 +100,10 @@ chrome.tabGroups.query({}, function(tabGroups) {
         ul.appendChild(groupItem);
         
         // markdown clip に追加
-        markdownClip += `\t- [${tabTitle}](${tab.url})\n`;
+        markdownClip += generateMarkdownClipFromTabInfo(tabTitle, tab.url);
 
         // raw url clip に追加
-        rawUrlClip += `- ${tab.url}\n`;
+        rawUrlClip += generateMarkdownClipFromTabUrl(tab.url);
       });
     });
   });
@@ -75,16 +121,12 @@ chrome.tabGroups.query({}, function(tabGroups) {
 
     // この h2 要素をクリップボードにコピーするボタンを表示する
     copyButton.addEventListener('click', function() {
-      var markdown = `- ${groupTitle.textContent}\n\t-\n`;
-      tabs.forEach(function(tab) {
-        var tabTitle = tab.title || tab.url;
-        markdown += `\t- [${tabTitle}](${tab.url})\n`;
-      });
+      var markdown = generateMarkdownClip(groupTitle.textContent, tabs);
       navigator.clipboard.writeText(markdown);
     });
 
     // markdown clip に追加
-    markdownClip += `- ${groupTitle.textContent}\n\t-\n`;
+    markdownClip += generateMarkdownClipFromGroupTitle(groupTitle.textContent);
 
     // タブグループに属するタブを表示する
     var ul = document.createElement('ul');
@@ -103,10 +145,10 @@ chrome.tabGroups.query({}, function(tabGroups) {
       ul.appendChild(groupItem);
 
       // markdown clip に追加
-      markdownClip += `\t- [${tabTitle}](${tab.url})\n`;
+      markdownClip += generateMarkdownClipFromTabInfo(tabTitle, tab.url);
 
       // raw url clip に追加
-      rawUrlClip += `- ${tab.url}\n`;
+      rawUrlClip += generateMarkdownClipFromTabUrl(tab.url);
     });
   });
 
