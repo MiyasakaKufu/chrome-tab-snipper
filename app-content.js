@@ -39,6 +39,14 @@ function generateMarkdownClip(tabGroupTitle, tabs) {
 chrome.tabGroups.query({}, function(tabGroups) {
   var markdownClip = '';
   var rawUrlClip = '';
+  const appContent = document.getElementById('app-content');
+  const copyMarkdownButton = document.createElement('button');
+  copyMarkdownButton.textContent = 'Copy Markdown';
+  appContent.appendChild(copyMarkdownButton);
+
+  const copyUrlOnlyButton = document.createElement('button');
+  copyUrlOnlyButton.textContent = 'Copy URL Only';
+  appContent.appendChild(copyUrlOnlyButton);
   
   tabGroups.forEach(function(tabGroup) {
     // タブグループに属するタブを取得
@@ -46,7 +54,7 @@ chrome.tabGroups.query({}, function(tabGroups) {
       // セクションを作成
       var tabGroupSection = document.createElement('section');
       tabGroupSection.className = 'tab-group';
-      document.body.appendChild(tabGroupSection);
+      appContent.appendChild(tabGroupSection);
 
       // グループタイトルとボタンを格納するセクションを作成
       var tabGroupHeaderSection = document.createElement('section');
@@ -101,12 +109,12 @@ chrome.tabGroups.query({}, function(tabGroups) {
   chrome.tabs.query({groupId: -1}, function(tabs) {
     var groupTitle = document.createElement('h2');
     groupTitle.textContent = 'その他';
-    document.body.appendChild(groupTitle);
+    appContent.appendChild(groupTitle);
 
     // この h2 要素をクリップボードにコピーするボタンを表示する
     var copyButton = document.createElement('button');
     copyButton.textContent = 'Copy Markdown';
-    document.body.appendChild(copyButton);
+    appContent.appendChild(copyButton);
 
     // この h2 要素をクリップボードにコピーするボタンを表示する
     copyButton.addEventListener('click', function() {
@@ -119,7 +127,7 @@ chrome.tabGroups.query({}, function(tabGroups) {
 
     // タブグループに属するタブを表示する
     var ul = document.createElement('ul');
-    document.body.appendChild(ul);
+    appContent.appendChild(ul);
     tabs.forEach(function(tab) {
       var groupItem = document.createElement('li');
 
@@ -142,12 +150,12 @@ chrome.tabGroups.query({}, function(tabGroups) {
   });
 
   // copy-markdown-button クリック時に markdownClip をクリップボードにコピーする
-  document.getElementById('copy-markdown-button').addEventListener('click', function() {
+  copyMarkdownButton.addEventListener('click', function() {
     navigator.clipboard.writeText(markdownClip);
   });
 
   // copy-url-only-button クリック時に rawUrlClip をクリップボードにコピーする
-  document.getElementById('copy-url-only-button').addEventListener('click', function() {
+  copyUrlOnlyButton.addEventListener('click', function() {
     navigator.clipboard.writeText(rawUrlClip);
   });
 
