@@ -97,3 +97,58 @@ section.tab-group-section {
   padding: 0.5em;
   background-color: #f0f0f0;
 }
+
+/* テキストエリアのスタイルを変更 */
+textarea {
+  width: 100%;
+  height: 10em;
+  padding: 0.5em;
+  margin: 0.5em 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #fff;
+  font-family: 'Menlo, Monaco', 'Courier New', monospace; /* フォントを設定 */
+}
+
+/* pre要素のスタイルを変更 */
+
+pre {
+  padding: 0.5em;
+  margin: 0.5em 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  color: #fff;
+  background-color: #333;
+  white-space: pre-wrap;
+  font-family: 'Menlo, Monaco', 'Courier New', monospace; /* フォントを設定 */
+}
+
+.no-select {
+  user-select: none;
+}
+
+.space {
+  color: #777777;
+}
+
+.tab {
+  display: inline-block;
+  width: 2em; /* タブの幅を設定 */
+  background-color: #777777; /* 背景色を設定 */
+  border: 1px solid #777777; /* 境界線を設定 */
+  vertical-align: middle; /* 中央に揃える */
+  color: #777777;
+}
+
+.newline {
+  color: #777777;
+}
+
+/* highlight クラスを持つ要素のスタイルを変更 */
+.highlight {
+  color: cyan; /* 青色に設定 */
+}
+
+.error {
+  color: red; /* エラーを赤色に設定 */
+}
