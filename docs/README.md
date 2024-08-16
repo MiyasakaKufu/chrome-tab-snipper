@@ -31,6 +31,10 @@ A Chrome extension that neatly copies your Chrome tabs to the clipboard.
 4. Click "Load unpacked" and select the directory cloned in step 1
 5. The "Tab Snipper" extension will appear in the list of extensions
 
+## Branch management
+
+For branch management rules, please refer [here](https://github.com/MiyasakaKufu/chrome-tab-snipper/wiki/Branch-Management-Guidelines).
+
 ## License
 
 - MIT LICENSE
